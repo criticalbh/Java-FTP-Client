@@ -5,11 +5,11 @@ Download koshuke [args4j].
 
 Compile:
 ```sh
-$ javac -cp ".:./args4j" Program.java
+$ javac -cp ".:./args4j" FTPClient.java
 ```
 Run:
 ```sh
-$ java -cp ".:./args4j" Program -u username -p password -server server -files file1:file2:file3
+$ java -cp ".:./args4j" FTPClient -u username -p password -server server -files file1:file2:file3
 ```
 Username, password and server are optional arguments and you can change default values in CmdArgs.java
 
