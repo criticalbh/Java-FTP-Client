@@ -7,7 +7,6 @@ import org.kohsuke.args4j.Option;
 
 public class CmdArgs {
 
-
 	public CmdArgs(String... args) {
 		CmdLineParser parser = new CmdLineParser(this);
 		try {
@@ -41,9 +40,11 @@ public class CmdArgs {
 			return "127.0.0.1";
 		return server;
 	}
+	
 	/*
 	 * Get list of files in raw format (dat1:dat2)
 	 */
+	
 	public String getAllFiles(){
 		return files;
 	}
@@ -56,43 +57,30 @@ public class CmdArgs {
 	 * returns string array of file names
 	 */
 	public String[] getFileNames(){
-		/*
-		 * Seperate file names by colon (semicolon)
-		 */
+		
+		// Seperate file names by colon (semicolon)
 		if(getAllFiles()==null){
 			checkErrors = true;
 			return null;
 		}
 		StringTokenizer tokenizer = 
-				new StringTokenizer(getAllFiles(), ":");
+				new StringTokenizer(getAllFiles(), ";");
 		
-		/*
-		 * Get number of files
-		 */
+		
+		// Get number of files
 		int numOfFiles = 
 				tokenizer.countTokens();
 		
-		/*
-		 * Initialize array with number of fiels
-		 */
+		// Initialize array with number of fiels
 		String [] fileNames = 
 				new String[numOfFiles];
 		
-		/*
-		 * Check if number of files is greater than allowed (5)
-		 */
-		if (numOfFiles > 5) {
-			checkErrors = true;
-			System.out.println("Maximum number of allowed files is 5.");
-		}else{
-			/*
-			 * Fill array of strings with file names
-			 */
-			int i = 0;
-			while (tokenizer.hasMoreTokens()) {
-				fileNames[i++] = tokenizer.nextToken();
-			}
+		// Fill array of strings with file names
+		int i = 0;
+		while (tokenizer.hasMoreTokens()) {
+			fileNames[i++] = tokenizer.nextToken();
 		}
+		
 		return fileNames;
 	}
 	
