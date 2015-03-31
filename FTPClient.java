@@ -1,9 +1,12 @@
+import handler.FileIO;
+import handler.ParseArgs;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import fileHandler.FileIO;
+
 import ftpUpload.FTPUpload;
 import ftpUpload.Reports;
 
@@ -45,27 +48,26 @@ public class FTPClient {
 	public static void main(String[] args) throws IOException {
 
 		// Parse arguments
-		CmdArgs cmd = new CmdArgs(args);
-
-		final String server = cmd.getServer();
-		final String username = cmd.getUsername();
-		final String password = cmd.getPassword();
-		String[] fileNames = cmd.getFileNames();
-				
+	
+		ParseArgs arguments = new ParseArgs(args);
 		
-		// check for errors in args
-		if (cmd.hasErrors() == true) {
+		if(arguments.Errors == false){
+			String username = arguments.getUsername();
+			String password = arguments.getPassword();
+			String server = arguments.getServer();
+			String [] fileNames = arguments.getFileNames();
+			
+			FileIO files = new FileIO(fileNames);
+		    if(files.getErrors() || files.getFilesToUpload().isEmpty()){
+		    	System.exit(0);
+		    }
+		    
+		    int numOfFiles = files.getNumOfElements();	    
+			startThreads(numOfFiles, server, username, password, files.getFilesToUpload());
+			Reports.showStatistics();
+		}else{
+			System.out.println("eeee");
 			System.exit(0);
 		}
-		
-		// check for errors in files
-	    FileIO files = new FileIO(fileNames);
-	    if(files.getErrors() || files.getFilesToUpload().isEmpty()){
-	    	System.exit(0);
-	    }
-	    
-	    int numOfFiles = files.getNumOfElements();	    
-		startThreads(numOfFiles, server, username, password, files.getFilesToUpload());
-		Reports.showStatistics();		
 	}
 }
