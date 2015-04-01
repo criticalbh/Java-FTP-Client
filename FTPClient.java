@@ -66,8 +66,7 @@ public class FTPClient {
 			startThreads(numOfFiles, server, username, password, files.getFilesToUpload());
 			Reports.showStatistics();
 		}else{
-			System.out.println("eeee");
-			System.exit(0);
+			arguments.printError();
 		}
 	}
 }

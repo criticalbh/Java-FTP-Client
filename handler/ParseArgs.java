@@ -5,7 +5,8 @@ import java.util.StringTokenizer;
 public class ParseArgs {
 
 	private String Username, Password, Server, Files;
-	public boolean Errors;
+	private String ErrorMessage = new String();
+	public boolean Errors = false;
 	public ParseArgs(String... args){
 		parse(args);
 	}
@@ -13,29 +14,20 @@ public class ParseArgs {
 	private void parse(String... args){
         int i = 0;
         String arg;
-        boolean first = false, second = false, third = false;
+        
         
         while (i < args.length && args[i].startsWith("-")) {
             arg = args[i++];
             if (arg.equals("-u") && (i < args.length)) {
-        		if(i == 1){
-        			first = true;
         			Username = args[i++];
-        		}
             }
             
             else if(arg.equals("-p") && (i < args.length)){
-	        	if(i == 3){
 	        		Password = args[i++];
-	        		second = true;
-                }
             }
             
             else if(arg.equals("-server") && (i < args.length)){
-            	if(i == 5){
             		Server = args[i++];
-            		third = true;
-            	} 
             }
             
             else if(arg.equals("-files")){
@@ -44,28 +36,15 @@ public class ParseArgs {
                 }
             }
         }
-        
-        if(Files != null){
-        	Errors = false;
-        }
-        else if (checkErrors(first, second, third)){
+        if(Files == null){
+        	ErrorMessage+="Usage: –u ftpuser –p ftppass – server 127.0.0.1 –files file.dat";
         	Errors = true;
-            System.out.println("Usage: -u user -p password -server server -files file1;file2;file3");
-        }
-        else{
-        	Errors = false;
-            System.out.println("Success!");
         }
 	}
-	
-	private boolean checkErrors(boolean first, boolean second, boolean third) {
-		if(first == true && second == true 
-				&& third == true && Files != null){
-			return false;
-		}
-		return true;
+	public void printError(){
+		System.out.println(ErrorMessage);
+		System.exit(0);
 	}
-
 	public String getUsername() {
 		if (Username == null)
 			return "unixmen";
