@@ -13,7 +13,8 @@ public class FileIO
 	
 	private ArrayList<File> filesToUpoad;
 	private File[] fileList;	
-	private boolean hasErrors = false;
+	private boolean Errors = false;
+	private String ErrorMessage = new String();
 	
 	/********************
 	 * Constructor
@@ -27,8 +28,8 @@ public class FileIO
 			fileSetUpload();
 		}
 		else{
-			hasErrors=true;
-			System.out.println("Number of maximum files exceeded. (5)");
+			Errors=true;
+			ErrorMessage += "Number of maximum files exceeded. (5)\n";
 		}
 	}
 	
@@ -70,6 +71,11 @@ public class FileIO
 	}
 	
 	public boolean getErrors(){
-		return hasErrors;
+		return Errors;
 	}	
+	
+	public void printErrors(){
+		System.out.println(ErrorMessage);
+		System.exit(0);
+	}
 }

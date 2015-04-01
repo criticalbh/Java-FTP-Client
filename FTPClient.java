@@ -51,7 +51,7 @@ public class FTPClient {
 	
 		ParseArgs arguments = new ParseArgs(args);
 		
-		if(arguments.Errors == false){
+		if(arguments.getErrors() == false){
 			String username = arguments.getUsername();
 			String password = arguments.getPassword();
 			String server = arguments.getServer();
@@ -59,14 +59,14 @@ public class FTPClient {
 			
 			FileIO files = new FileIO(fileNames);
 		    if(files.getErrors() || files.getFilesToUpload().isEmpty()){
-		    	System.exit(0);
+		    	files.printErrors();
 		    }
 		    
 		    int numOfFiles = files.getNumOfElements();	    
 			startThreads(numOfFiles, server, username, password, files.getFilesToUpload());
 			Reports.showStatistics();
 		}else{
-			arguments.printError();
+			arguments.printErrors();
 		}
 	}
 }

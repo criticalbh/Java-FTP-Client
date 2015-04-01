@@ -6,7 +6,8 @@ public class ParseArgs {
 
 	private String Username, Password, Server, Files;
 	private String ErrorMessage = new String();
-	public boolean Errors = false;
+	private boolean Errors = false;
+	
 	public ParseArgs(String... args){
 		parse(args);
 	}
@@ -37,11 +38,16 @@ public class ParseArgs {
             }
         }
         if(Files == null){
-        	ErrorMessage+="Usage: –u ftpuser –p ftppass – server 127.0.0.1 –files file.dat";
+        	ErrorMessage += "Usage: –u ftpuser –p ftppass – server 127.0.0.1 –files file.dat \n";
         	Errors = true;
         }
 	}
-	public void printError(){
+	
+	public boolean getErrors(){
+		return Errors;
+	}
+	
+	public void printErrors(){
 		System.out.println(ErrorMessage);
 		System.exit(0);
 	}
