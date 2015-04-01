@@ -1,15 +1,13 @@
 # Java FTP Client
 FTP Client written in java, able tu upload multiple files at once.
-###Setup
-Download koshuke [args4j].
 
 Compile:
 ```sh
-$ javac -cp ".:./args4j" FTPClient.java
+$ javac FTPClient.java
 ```
 Run:
 ```sh
-$ java -cp ".:./args4j" FTPClient -u username -p password -server server -files file1:file2:file3
+$ java FTPClient -u username -p password -server server -files file1:file2:file3
 ```
 Username, password and server are optional arguments and you can change default values in CmdArgs.java
 
