@@ -71,7 +71,7 @@ public class ParseArgs {
 
 	public String[] getFileNames(){
 		StringTokenizer tokenizer = 
-				new StringTokenizer(Files, ":");
+				new StringTokenizer(Files, ";");
 		
 		// Get number of files
 		int numOfFiles = 
